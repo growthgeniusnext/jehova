@@ -59,6 +59,8 @@ function initPreloader(){
   }
   requestAnimationFrame(frame);
 }
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9192280002676126"
+     crossorigin="anonymous"></script>
 
 /* =====================================================
    2. POPUP (uniquement si présente sur la page)
