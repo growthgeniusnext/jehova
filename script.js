@@ -14,21 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* =====================================================
-   1. PRÉCHARGEUR — le nom de l'entreprise grossit
-      pendant 10 secondes avant l'entrée sur le site
-   ===================================================== */
-window.addEventListener('load', () => {
-const preloader = document.getElementById('preloader');
- 
-preloader.classList.add('hide');
-document.body.classList.remove('is-loading');
- 
-setTimeout(() => {
-preloader.remove();
-}, 600);
-});
-
-/* =====================================================
    2. POPUP (uniquement si présente sur la page)
    ===================================================== */
 function initPopup(){
