@@ -3,8 +3,12 @@
    Commun à toutes les pages (index, services, apropos, contact)
    ===================================================== */
 
+// Retire immédiatement le garde-fou "no-js" : si ce script s'exécute,
+// le contenu à révélation (.reveal / .reveal-left / etc.) doit pouvoir
+// s'animer normalement plutôt que de rester bloqué en CSS de secours.
+document.documentElement.classList.remove('no-js');
+
 document.addEventListener('DOMContentLoaded', () => {
-  initPreloader();
   injectAIWidget();
   initPopup();
   initRevealAnimations();
@@ -14,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* =====================================================
-   2. POPUP (uniquement si présente sur la page)
+   1. POPUP (offre d'audit gratuit)
    ===================================================== */
 function initPopup(){
   const popupOverlay = document.getElementById('popupOverlay');
@@ -37,11 +41,9 @@ function initPopup(){
     setTimeout(closePopup, 1400);
   });
 
-  // Si pas de préchargeur sur cette page (services/apropos/contact),
-  // on ouvre la popup après un court délai d'arrivée sur la page.
-  if(!document.getElementById('preloader')){
-    setTimeout(openPopup, 6000);
-  }
+  // Ouvre la popup après un court délai d'arrivée sur la page,
+  // identique sur toutes les pages puisqu'il n'y a plus de préchargeur.
+  setTimeout(openPopup, 6000);
 }
 function openPopup(){
   document.getElementById('popupOverlay')?.classList.add('open');
@@ -51,7 +53,7 @@ function closePopup(){
 }
 
 /* =====================================================
-   3. ASSISTANT IA — injecté automatiquement sur CHAQUE page
+   2. ASSISTANT IA — injecté automatiquement sur CHAQUE page
    ===================================================== */
 function injectAIWidget(){
   if(document.getElementById('aiToggle')) return;
@@ -142,7 +144,7 @@ function injectAIWidget(){
 }
 
 /* =====================================================
-   4. ANIMATIONS AU DÉFILEMENT (reveal on scroll)
+   3. ANIMATIONS AU DÉFILEMENT (reveal on scroll)
    ===================================================== */
 function initRevealAnimations(){
   const items = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom');
@@ -161,7 +163,7 @@ function initRevealAnimations(){
 }
 
 /* =====================================================
-   5. COMPTEURS ANIMÉS (statistiques)
+   4. COMPTEURS ANIMÉS (statistiques)
    ===================================================== */
 function initCounters(){
   const counters = document.querySelectorAll('.counter');
@@ -194,7 +196,7 @@ function animateCounter(el){
 }
 
 /* =====================================================
-   6. FENÊTRE FLOTTANTE — page Services uniquement
+   5. FENÊTRE FLOTTANTE — page Services uniquement
    ===================================================== */
 function initServiceFloatingCard(){
   const card = document.getElementById('floatingServiceCard');
@@ -215,7 +217,7 @@ function initServiceFloatingCard(){
 }
 
 /* =====================================================
-   7. MENU BURGER (mobile)
+   6. MENU BURGER (mobile)
    ===================================================== */
 function initBurgerMenu(){
   const burger = document.querySelector('.burger');
