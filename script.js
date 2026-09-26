@@ -17,50 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
    1. PRÉCHARGEUR — le nom de l'entreprise grossit
       pendant 10 secondes avant l'entrée sur le site
    ===================================================== */
-function initPreloader(){
-  const preloader = document.getElementById('preloader');
-  if(!preloader) return; // uniquement présent sur index.html
-
-  const nameEl   = document.getElementById('growName');
-  const percentEl= document.getElementById('loadPercent');
-  const barFill  = document.getElementById('barFill');
-  const content  = document.getElementById('siteContent');
-  const duration = 10000; // 10 secondes
-  const startTime = performance.now();
-
-  document.body.classList.add('is-loading');
-
-  function frame(now){
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 2); // easeOutQuad : démarre vite, ralentit en douceur
-
-    const scale = 0.4 + eased * 2.1;      // grossit de x0.4 à x2.5
-    const glow  = 10 + eased * 45;         // le halo s'intensifie
-    if(nameEl){
-      nameEl.style.transform = `scale(${scale})`;
-      nameEl.style.opacity = Math.min(0.35 + eased * 0.9, 1);
-      nameEl.style.textShadow =
-        `0 0 ${glow}px rgba(236,60,140,${0.35 + eased*0.4}), 0 0 ${glow*1.8}px rgba(139,63,251,${0.25 + eased*0.35})`;
-    }
-    if(barFill) barFill.style.width = (eased * 100) + '%';
-    if(percentEl) percentEl.textContent = Math.round(eased * 100);
-
-    if(progress < 1){
-      requestAnimationFrame(frame);
-    } else {
-      setTimeout(() => {
-        preloader.classList.add('fade-out');
-        if(content) content.classList.add('revealed');
-        document.body.classList.remove('is-loading');
-        setTimeout(openPopup, 3000);
-      }, 350);
-    }
-  }
-  requestAnimationFrame(frame);
-}
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9192280002676126"
-     crossorigin="anonymous"></script>
+window.addEventListener('load', () => {
+const preloader = document.getElementById('preloader');
+ 
+preloader.classList.add('hide');
+document.body.classList.remove('is-loading');
+ 
+setTimeout(() => {
+preloader.remove();
+}, 600);
+});
 
 /* =====================================================
    2. POPUP (uniquement si présente sur la page)
